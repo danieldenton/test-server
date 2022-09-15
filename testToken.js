@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const jwtTest = async () => {
   try {
@@ -11,9 +12,13 @@ const jwtTest = async () => {
       email: "email@email.com",
     };
     // sign the JWT
-    const secret = "my secret";
-    const token = jwt.sign(payload, secret, { expiresIn: 60 * 60 * 24 });
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: 60 * 60 * 24,
+    });
     console.log(token);
+    // decode the jwt -- make sure that the secret in the jwt is the same as our server
+    const decode = jwt.verify(token, process.env.JWT_SECRET);
+    console.log(decode);
   } catch (err) {
     console.log(err);
   }

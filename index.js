@@ -14,4 +14,7 @@ app.get("/", (req, res) => {
   res.json({ msg: "This works!" });
 });
 
+// controllers
+app.use("/api-v1/users", require("./controllers/api-v1/users"));
+
 app.listen(PORT, () => console.log(`you're listening to ${PORT}`));
